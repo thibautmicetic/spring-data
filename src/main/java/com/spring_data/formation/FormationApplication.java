@@ -11,6 +11,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Optional;
+
 @SpringBootApplication
 public class FormationApplication implements CommandLineRunner {
 
@@ -31,11 +33,7 @@ public class FormationApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		Iterable<Product> products = productService.getProducts();
-		products.forEach(product -> System.out.println(product.getName()));
-		Iterable<Comment> comments = commentService.getComments();
-		comments.forEach(comment -> System.out.println(comment.getContent()));
-		Iterable<Category> categories = categoryService.getCategories();
-		categories.forEach(category -> System.out.println(category.getName()));
+		Optional<Product> optProduct = productService.getOneProduct(1);
+		Product product = optProduct.get();
 	}
 }
