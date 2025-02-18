@@ -6,6 +6,7 @@ import com.spring_data.formation.model.Product;
 import com.spring_data.formation.service.CategoryService;
 import com.spring_data.formation.service.CommentService;
 import com.spring_data.formation.service.ProductService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,8 +33,16 @@ public class FormationApplication implements CommandLineRunner {
 	}
 
 	@Override
+	@Transactional
 	public void run(String... args) {
 		Optional<Product> optProduct = productService.getOneProduct(1);
 		Product product = optProduct.get();
+		product.getComments().forEach(comment -> System.out.println(comment.getContent()));
+
+		Optional<Category> optCategory = categoryService.getCategoryById(1);
+		if(optCategory.isPresent()){
+			Category category = optCategory.get();
+			category.getProducts().forEach(product1 -> System.out.println(product1.getName()));
+		}
 	}
 }
