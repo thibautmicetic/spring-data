@@ -35,14 +35,7 @@ public class FormationApplication implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run(String... args) {
-		Optional<Product> optProduct = productService.getOneProduct(1);
-		Product product = optProduct.get();
-		product.getComments().forEach(comment -> System.out.println(comment.getContent()));
-
-		Optional<Category> optCategory = categoryService.getCategoryById(1);
-		if(optCategory.isPresent()){
-			Category category = optCategory.get();
-			category.getProducts().forEach(product1 -> System.out.println(product1.getName()));
-		}
+		Iterable<Product> products = productService.getProductsByName("AssuranceTousRisques");
+		products.forEach(product -> System.out.println(product.getProductId()));
 	}
 }

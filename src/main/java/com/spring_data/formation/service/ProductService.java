@@ -25,4 +25,12 @@ public class ProductService {
         return productRepository.findById(productId);
     }
 
+    public Product addProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    public Iterable<Product> getProductsByName(String name) {
+        return productRepository.findByName(name);
+    }
+
 }
